@@ -10,6 +10,6 @@ interface PersonService {
     @FormUrlEncoded
     fun login(
         @Field("email") email: String,
-        @Field("passowrd") password: String
+        @Field("password") password: String
     ): Call<HeaderModel>
 }

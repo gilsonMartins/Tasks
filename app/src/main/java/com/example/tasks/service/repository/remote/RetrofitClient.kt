@@ -10,14 +10,16 @@ class RetrofitClient private constructor() {
         private val bseaurl = "http://devmasterteam.com/CursoAndroidAPI/"
         private fun getRetrofitInstace(): Retrofit {
             val httpClient = OkHttpClient.Builder()
-            retrofit = Retrofit.Builder()
-                .baseUrl(bseaurl)
-                .client(httpClient.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            if (!::retrofit.isInitialized){
+                retrofit = Retrofit.Builder()
+                    .baseUrl(bseaurl)
+                    .client(httpClient.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
             return retrofit
         }
-        fun <S : Any?> createService(serviceClass: Class<S>): S{
+        fun <S> createService(serviceClass: Class<S>): S{
             return getRetrofitInstace().create(serviceClass)
 
         }
