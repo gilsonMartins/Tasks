@@ -1,10 +1,10 @@
 package com.example.tasks.view
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
 import com.example.tasks.viewmodel.RegisterViewModel
@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_task_form.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDialog.OnDateSetListener {
+class TaskFormActivity : AppCompatActivity(), View.OnClickListener,
+    DatePickerDialog.OnDateSetListener {
 
     private lateinit var mViewModel: RegisterViewModel
     private val mDateFormat = SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH)
@@ -39,7 +40,7 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
             val password = edit_password.text.toString()
 
             mViewModel.create(name, email, password)
-        }else if (id == R.id.button_date){
+        } else if (id == R.id.button_date) {
             showDatePikcer()
         }
     }
