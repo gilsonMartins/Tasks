@@ -1,6 +1,7 @@
 package com.example.tasks.viewmodel
 
 import android.app.Application
+import android.renderscript.RenderScript
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,11 +10,13 @@ import com.example.tasks.service.constants.TaskConstants
 import com.example.tasks.service.listener.APiListerner
 import com.example.tasks.service.listener.ValidationListerner
 import com.example.tasks.service.repository.PersonRepository
+import com.example.tasks.service.repository.PriorityRepository
 import com.example.tasks.service.repository.local.SecurityPreferences
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mPersonREpository = PersonRepository(application)
+    private val mPriorityRepository = PriorityRepository(application)
     private val mSheredPreferences = SecurityPreferences(application)
     private val mLogin = MutableLiveData<ValidationListerner>()
     val login: LiveData<ValidationListerner> = mLogin
@@ -49,6 +52,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         val person = mSheredPreferences.get(TaskConstants.SHARED.PERSON_KEY)
 
         val logged = (token.isNotEmpty() && person.isNotEmpty())
+        if (!logged){
+            mPriorityRepository.all()
+        }
         mLogged.value = logged
 
     }
