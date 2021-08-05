@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class PersonRepository (val context: Context){
+class PersonRepository(val context: Context) {
 
     private val mRemote = RetrofitClient.createService(PersonService::class.java)
 
@@ -20,12 +20,37 @@ class PersonRepository (val context: Context){
         val call: Call<HeaderModel> = mRemote.login(email, password)
         call.enqueue(object : Callback<HeaderModel> {
             override fun onResponse(call: Call<HeaderModel>, response: Response<HeaderModel>) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     response.body()?.let {
                         listener.onSuccess(it)
                     }
                 } else {
-                    val validation = Gson().fromJson(response.errorBody()!!.string(), String::class.java)
+                    val validation =
+                        Gson().fromJson(response.errorBody()!!.string(), String::class.java)
+                    listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
+                }
+            }
+
+
+            override fun onFailure(call: Call<HeaderModel>, t: Throwable) {
+                listener.onFailure(t.message.toString())
+
+            }
+
+        })
+    }
+
+    fun create(name: String,email: String, password: String, listener: APiListerner) {
+        val call: Call<HeaderModel> = mRemote.create(name,email, password)
+        call.enqueue(object : Callback<HeaderModel> {
+            override fun onResponse(call: Call<HeaderModel>, response: Response<HeaderModel>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        listener.onSuccess(it)
+                    }
+                } else {
+                    val validation =
+                        Gson().fromJson(response.errorBody()!!.string(), String::class.java)
                     listener.onFailure(context.getString(R.string.ERROR_UNEXPECTED))
                 }
             }
