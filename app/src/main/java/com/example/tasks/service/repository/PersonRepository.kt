@@ -2,7 +2,7 @@ package com.example.tasks.service.repository
 
 import android.content.Context
 import com.example.tasks.R
-import com.example.tasks.service.HeaderModel
+import com.example.tasks.service.model.HeaderModel
 import com.example.tasks.service.listener.APiListerner
 import com.example.tasks.service.repository.remote.PersonService
 import com.example.tasks.service.repository.remote.RetrofitClient
@@ -10,7 +10,6 @@ import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class PersonRepository(val context: Context) {
 
