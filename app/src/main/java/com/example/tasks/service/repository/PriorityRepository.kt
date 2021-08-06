@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PriorityRepository (context: Context){
+class PriorityRepository(context: Context) {
 
     private val mRemote = RetrofitClient.createService(PriorityService::class.java)
     private val mPriorityDataBase = TaskDatabase.getDatabase(context).preiorityDao()
@@ -36,4 +36,7 @@ class PriorityRepository (context: Context){
 
         })
     }
+
+    fun list() = mPriorityDataBase.list()
+
 }
