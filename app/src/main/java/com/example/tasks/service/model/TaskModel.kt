@@ -17,5 +17,5 @@ class TaskModel {
     var dueDate = "1"
 
     @SerializedName("Complete")
-    var Complete = false
+    var complete = false
 }

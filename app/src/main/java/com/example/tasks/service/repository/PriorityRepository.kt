@@ -16,7 +16,7 @@ class PriorityRepository(context: Context) {
     private val mPriorityDataBase = TaskDatabase.getDatabase(context).preiorityDao()
 
     fun all() {
-        val call: Call<List<PriorityModel>> = mRemote.list()
+        val call: Call<List<PriorityModel>> = mRemote.all()
         call.enqueue(object : Callback<List<PriorityModel>> {
             override fun onResponse(
                 call: Call<List<PriorityModel>>,

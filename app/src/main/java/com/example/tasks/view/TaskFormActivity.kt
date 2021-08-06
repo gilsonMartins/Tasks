@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
@@ -49,7 +50,7 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener,
             this.description = edit_description.text.toString()
             this.dueDate = button_date.text.toString()
             this.priorityId = mListPriorityId[spinner_priority.selectedItemPosition]
-            this.Complete = check_complete.isChecked
+            this.complete = check_complete.isChecked
         }
         mViewModel.save(task)
     }
@@ -71,6 +72,11 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener,
             }
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list)
             spinner_priority.adapter = adapter
+        })
+        mViewModel.validation.observe(this, androidx.lifecycle.Observer {
+            if (it.success()){
+                Toast.makeText(this, "Sucesso!", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
